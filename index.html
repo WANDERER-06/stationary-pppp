@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Piyush Stationary — Find Your Purpose</title>
+<style>
+:root{--forest:#263d32;--sage:#718878;--sage-light:#dfe8df;--moss:#536b59;--cream:#f7f4eb;--paper:#fffdf7;--sand:#e8dfcf;--clay:#b88768;--brown:#705746;--ink:#28302a;--muted:#7b817a;--line:#e3dfd4;--white:#fff;--pink:#e7a8b6}
+*{margin:0;padding:0;box-sizing:border-box;font-family:"Segoe UI","Helvetica Neue",Arial,sans-serif}
+html{scroll-behavior:smooth}
+body{background:var(--cream);color:var(--ink);overflow-x:hidden}
+.live-wallpaper{position:fixed;inset:0;width:100%;height:100vh;z-index:-10;overflow:hidden;pointer-events:none;background:linear-gradient(135deg,#f7f2e9 0%,#eee7dc 45%,#e2e8df 100%)}
+.wallpaper-overlay{position:absolute;inset:0;background:radial-gradient(circle at 75% 20%,rgba(255,207,220,.38),transparent 27%),radial-gradient(circle at 15% 80%,rgba(204,220,203,.35),transparent 32%)}
+.bonsai-scene{position:absolute;width:600px;height:600px;right:-70px;bottom:-130px;opacity:.38;transform-origin:bottom center;animation:bonsaiBreathe 8s ease-in-out infinite}
+.bonsai-trunk{position:absolute;width:65px;height:430px;right:245px;bottom:0;background:linear-gradient(90deg,#49392f,#765744,#4d3a30);border-radius:50% 45% 20% 20%;transform:rotate(7deg) skewX(-5deg);box-shadow:8px 0 20px rgba(60,40,30,.15)}
+.bonsai-branch{position:absolute;height:32px;background:linear-gradient(90deg,#4b382e,#765744);border-radius:30px;transform-origin:left center}
+.branch-one{width:280px;right:250px;bottom:310px;transform:rotate(-25deg)}
+.branch-two{width:230px;right:270px;bottom:390px;transform:rotate(18deg)}
+.branch-three{width:190px;right:270px;bottom:235px;transform:rotate(22deg)}
+.blossom{position:absolute;font-size:72px;filter:drop-shadow(0 10px 12px rgba(70,40,40,.1));animation:blossomFloat 5s ease-in-out infinite}
+.blossom-one{right:445px;bottom:350px}.blossom-two{right:230px;bottom:425px;font-size:85px;animation-delay:.8s}.blossom-three{right:80px;bottom:330px;font-size:78px;animation-delay:1.5s}.blossom-four{right:350px;bottom:455px;font-size:65px;animation-delay:2s}.blossom-five{right:130px;bottom:460px;font-size:65px;animation-delay:2.7s}.blossom-six{right:390px;bottom:235px;font-size:58px;animation-delay:3.2s}
+.falling-petal{position:absolute;top:-50px;color:var(--pink);font-size:14px;opacity:.7;user-select:none;animation:petalFall linear infinite,petalSway ease-in-out infinite}
+@keyframes petalFall{0%{transform:translate3d(0,-50px,0) rotate(0deg);opacity:0}10%{opacity:.75}90%{opacity:.65}100%{transform:translate3d(var(--drift),110vh,0) rotate(720deg);opacity:0}}
+@keyframes petalSway{0%,100%{margin-left:-12px}50%{margin-left:22px}}
+@keyframes bonsaiBreathe{0%,100%{transform:rotate(0deg) translateY(0)}50%{transform:rotate(.8deg) translateY(-5px)}}
+@keyframes blossomFloat{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-10px) rotate(3deg)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(35px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes breathe{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+@keyframes slowFloat{0%,100%{transform:translate(0,0) rotate(-7deg)}50%{transform:translate(5px,-12px) rotate(-5deg)}}
+@keyframes cartPop{0%{transform:scale(1)}40%{transform:scale(1.2)}70%{transform:scale(.92)}100%{transform:scale(1)}}
+@keyframes toastIn{from{opacity:0;transform:translate(-50%,60px)}to{opacity:1;transform:translate(-50%,0)}}
+@keyframes toastOut{from{opacity:1;transform:translate(-50%,0)}to{opacity:0;transform:translate(-50%,60px)}}
+.navbar{height:76px;width:100%;display:flex;align-items:center;justify-content:space-between;padding:0 7%;position:sticky;top:0;z-index:1000;background:rgba(247,244,235,.82);backdrop-filter:blur(14px);border-bottom:1px solid rgba(227,223,212,.85);animation:fadeDown .8s ease}
+.logo{display:flex;align-items:center;gap:11px;color:var(--forest);font-size:21px;font-weight:800}
+.logo-icon{width:42px;height:42px;display:flex;align-items:center;justify-content:center;border-radius:50% 50% 45% 55%;background:var(--forest);color:var(--cream);font-size:20px;box-shadow:0 7px 20px rgba(38,61,50,.15);transition:.4s}
+.logo:hover .logo-icon{transform:rotate(-10deg) scale(1.06)}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{color:var(--brown);text-decoration:none;font-size:14px;font-weight:600;position:relative;transition:.3s}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:-8px;width:0;height:1px;background:var(--sage);transition:.35s}
+.nav-links a:hover{color:var(--forest)}.nav-links a:hover::after{width:100%}
+.nav-actions{display:flex;align-items:center;gap:12px}
+.search-box{width:205px;height:40px;display:flex;align-items:center;padding:0 12px;background:rgba(255,255,255,.65);border:1px solid var(--line);border-radius:30px;transition:.3s}
+.search-box:focus-within{background:white;border-color:var(--sage);box-shadow:0 5px 20px rgba(50,70,55,.08)}
+.search-box span{color:var(--muted);margin-right:7px}.search-box input{width:100%;border:none;outline:none;background:transparent;color:var(--ink);font-size:12px}
+.cart-btn{width:42px;height:42px;border:none;border-radius:50%;background:var(--forest);color:white;cursor:pointer;position:relative;transition:.3s}
+.cart-btn:hover{background:var(--moss);transform:translateY(-2px)}.cart-btn.animate{animation:cartPop .5s ease}
+.cart-count{position:absolute;top:-4px;right:-4px;width:18px;height:18px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:var(--clay);color:white;font-size:10px;font-weight:800}
+.hero{min-height:590px;padding:80px 7%;display:grid;grid-template-columns:1.05fr .95fr;gap:50px;align-items:center;position:relative;overflow:hidden;background:linear-gradient(90deg,rgba(247,244,235,.84),rgba(247,244,235,.55))}
+.hero-content{position:relative;z-index:2;max-width:650px;animation:fadeUp 1s .2s ease both}
+.eyebrow{display:flex;align-items:center;gap:10px;color:var(--moss);font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;margin-bottom:22px}
+.eyebrow::before{content:"";width:30px;height:1px;background:var(--clay)}
+.hero h1{font-family:Georgia,"Times New Roman",serif;font-size:clamp(44px,5.2vw,72px);line-height:1.04;font-weight:500;letter-spacing:-2.5px;color:var(--forest);margin-bottom:25px}
+.hero h1 em{color:var(--clay);font-style:italic}
+.hero p{max-width:535px;color:var(--muted);font-size:16px;line-height:1.85;margin-bottom:32px}
+.hero-buttons{display:flex;gap:12px}
+.primary-btn,.secondary-btn{padding:14px 22px;border-radius:30px;font-size:13px;font-weight:700;text-decoration:none;transition:.35s;display:inline-block}
+.primary-btn{background:var(--forest);color:white;box-shadow:0 10px 25px rgba(38,61,50,.17)}.primary-btn:hover{background:var(--moss);transform:translateY(-3px);box-shadow:0 15px 30px rgba(38,61,50,.22)}
+.secondary-btn{background:transparent;color:var(--forest);border:1px solid #c9c4b8}.secondary-btn:hover{background:white;border-color:var(--sage);transform:translateY(-3px)}
+.hero-visual{height:420px;position:relative;display:flex;align-items:center;justify-content:center;animation:fadeUp 1.1s .4s ease both}
+.zen-circle{width:365px;height:365px;border-radius:50%;border:1px solid rgba(83,107,89,.25);position:absolute;display:flex;align-items:center;justify-content:center;animation:breathe 7s ease-in-out infinite}
+.zen-circle::before{content:"";width:280px;height:280px;border-radius:50%;border:1px dashed rgba(83,107,89,.22)}
+.paper{width:235px;height:300px;background:var(--paper);border-radius:4px 12px 10px 5px;position:relative;padding:32px;box-shadow:15px 22px 45px rgba(50,55,45,.15);transform:rotate(-7deg);animation:slowFloat 6s ease-in-out infinite;z-index:3}
+.paper::before{content:"";position:absolute;left:0;top:0;width:6px;height:100%;background:var(--sage);border-radius:5px 0 0 5px}
+.paper-title{font-family:Georgia,serif;color:var(--forest);font-size:24px;margin-bottom:28px}
+.paper-line{height:6px;background:#e4e1d8;border-radius:10px;margin-bottom:16px}.paper-line:nth-child(3){width:72%}.paper-line:nth-child(4){width:87%}.paper-line:nth-child(5){width:60%}
+.pencil{position:absolute;width:250px;height:22px;right:4px;bottom:92px;background:#b98c5d;border-radius:3px;transform:rotate(-34deg);z-index:5;box-shadow:0 8px 15px rgba(50,40,30,.15);animation:breathe 5s ease-in-out infinite}
+.pencil::after{content:"";position:absolute;right:-17px;top:0;border-left:17px solid #d5c09d;border-top:11px solid transparent;border-bottom:11px solid transparent}
+.leaf{position:absolute;color:var(--moss);font-size:34px;z-index:4;animation:breathe 5s ease-in-out infinite}.leaf-one{top:42px;left:35px}.leaf-two{bottom:38px;right:20px;font-size:28px;animation-delay:1.5s}
+.zen-label{position:absolute;padding:12px 17px;background:rgba(255,253,247,.9);border:1px solid var(--line);border-radius:30px;color:var(--brown);font-size:11px;font-weight:700;box-shadow:0 18px 50px rgba(42,55,45,.09);z-index:8;animation:breathe 5s ease-in-out infinite}
+.label-one{top:52px;right:18px}.label-two{bottom:35px;left:0;animation-delay:1s}
+.philosophy{padding:28px 7% 70px;display:flex;justify-content:center;background:rgba(247,244,235,.72)}
+.philosophy-inner{width:100%;max-width:1000px;display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.philosophy-item{padding:25px 20px;text-align:center;border-right:1px solid var(--line);opacity:0;transform:translateY(20px);transition:.7s}.philosophy-item:last-child{border-right:none}.philosophy-item.reveal{opacity:1;transform:translateY(0)}
+.philosophy-item span{display:block;color:var(--clay);font-family:Georgia,serif;font-size:20px;margin-bottom:6px}.philosophy-item strong{color:var(--forest);font-family:Georgia,serif;font-size:15px;font-weight:500}.philosophy-item p{margin-top:5px;color:var(--muted);font-size:10px}
+.products-section{padding:85px 7%;background:rgba(255,253,247,.87)}
+.section-heading{text-align:center;max-width:620px;margin:0 auto 50px;opacity:0;transform:translateY(35px);transition:1s}.section-heading.reveal{opacity:1;transform:translateY(0)}
+.section-heading small{color:var(--clay);font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase}.section-heading h2{font-family:Georgia,"Times New Roman",serif;color:var(--forest);font-size:40px;font-weight:500;margin:10px 0}.section-heading p{color:var(--muted);font-size:14px;line-height:1.7}
+.products-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.product-card{background:#fbfaf4;border:1px solid var(--line);border-radius:14px;overflow:hidden;opacity:0;transform:translateY(45px);transition:opacity .8s ease,transform .8s ease,box-shadow .4s ease}.product-card.reveal{opacity:1;transform:translateY(0)}.product-card:hover{transform:translateY(-8px);box-shadow:0 22px 45px rgba(50,60,50,.11)}
+.product-image{height:235px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}.image-one{background:#eee7d9}.image-two{background:#e5ebe4}.image-three{background:#ece5dc}.image-four{background:#e7e9df}
+.product-image::before{content:"";position:absolute;width:170px;height:170px;border-radius:50%;border:1px solid rgba(80,90,75,.12);transition:.5s}.product-card:hover .product-image::before{transform:scale(1.15)}
+.product-image span{font-size:78px;position:relative;z-index:2;filter:drop-shadow(0 12px 12px rgba(40,45,35,.12));transition:.5s}.product-card:hover .product-image span{transform:scale(1.1) translateY(-5px) rotate(-4deg)}
+.sale{position:absolute;top:14px;left:14px;padding:6px 10px;background:var(--forest);color:white;border-radius:20px;font-size:9px;letter-spacing:.8px;font-weight:800;z-index:5}
+.product-info{padding:21px}.category{color:var(--clay);font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:1.2px}.product-info h3{color:var(--forest);font-family:Georgia,serif;font-size:18px;font-weight:500;margin:8px 0}.rating{color:#aa8350;font-size:11px;margin-bottom:15px}.rating span{color:var(--muted);margin-left:4px}
+.product-bottom{display:flex;align-items:center;justify-content:space-between}.price{color:var(--forest);font-size:18px;font-weight:800}.old-price{color:#aaa;font-size:10px;text-decoration:line-through;margin-left:5px}
+.add-btn{width:40px;height:40px;border-radius:50%;border:1px solid var(--forest);background:transparent;color:var(--forest);cursor:pointer;font-size:19px;transition:.35s}.add-btn:hover{background:var(--forest);color:white;transform:rotate(90deg) scale(1.08)}
+.ikigai-message{padding:100px 7%;background:rgba(223,232,223,.84);text-align:center;position:relative;overflow:hidden}.ikigai-message::before,.ikigai-message::after{content:"";position:absolute;border-radius:50%;border:1px solid rgba(83,107,89,.18)}.ikigai-message::before{width:330px;height:330px;left:-160px;top:-120px}.ikigai-message::after{width:260px;height:260px;right:-120px;bottom:-120px}.ikigai-message small{color:var(--moss);font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase}.ikigai-message h2{max-width:720px;margin:15px auto;color:var(--forest);font-family:Georgia,serif;font-size:clamp(30px,4vw,48px);font-weight:500;line-height:1.25}.ikigai-message p{max-width:600px;margin:auto;color:var(--moss);line-height:1.8;font-size:14px}
+.newsletter{margin:75px 7%;padding:55px;border-radius:18px;background:var(--forest);color:white;display:flex;align-items:center;justify-content:space-between;gap:30px;position:relative;overflow:hidden;opacity:0;transform:translateY(40px);transition:1s}.newsletter.reveal{opacity:1;transform:translateY(0)}
+.newsletter h2{font-family:Georgia,serif;font-weight:500;font-size:31px;margin-bottom:8px}.newsletter p{color:#bdc8bd;font-size:13px}.newsletter-form{display:flex;gap:8px;position:relative;z-index:2}.newsletter-form input{width:245px;padding:14px 17px;border:none;outline:none;border-radius:30px;background:#f9f7ef;color:var(--ink)}.newsletter-form button{padding:14px 20px;border:none;border-radius:30px;background:var(--clay);color:white;font-size:12px;font-weight:800;cursor:pointer;transition:.3s}.newsletter-form button:hover{background:#c19474;transform:translateY(-2px)}
+footer{padding:50px 7% 25px;background:#1e2e26;color:white}.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;padding-bottom:40px}.footer-brand p{max-width:330px;color:#aab6ad;font-size:12px;line-height:1.8;margin-top:15px}footer .logo{color:white}footer .logo-icon{background:var(--clay)}footer h4{font-size:13px;margin-bottom:16px}footer ul{list-style:none}footer li{margin-bottom:10px}footer a{color:#aab6ad;text-decoration:none;font-size:11px;transition:.3s}footer a:hover{color:white;padding-left:4px}.copyright{border-top:1px solid rgba(255,255,255,.1);padding-top:20px;text-align:center;color:#7f8c83;font-size:10px}
+.overlay{position:fixed;inset:0;background:rgba(26,35,29,.45);z-index:1500;opacity:0;visibility:hidden;transition:.4s}.overlay.active{opacity:1;visibility:visible}
+.cart-panel{position:fixed;top:0;right:-400px;width:370px;height:100vh;padding:25px;background:var(--paper);z-index:2000;box-shadow:-15px 0 50px rgba(30,40,32,.15);transition:right .5s cubic-bezier(.77,0,.18,1)}.cart-panel.active{right:0}
+.cart-header{display:flex;align-items:center;justify-content:space-between;padding-bottom:20px;border-bottom:1px solid var(--line)}.cart-header h2{color:var(--forest);font-family:Georgia,serif;font-size:22px;font-weight:500}.close-cart{width:35px;height:35px;border:none;border-radius:50%;background:var(--sage-light);color:var(--forest);cursor:pointer;transition:.3s}.close-cart:hover{transform:rotate(90deg);background:var(--forest);color:white}
+.cart-items{padding-top:20px;max-height:65vh;overflow-y:auto}.cart-item{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid var(--line);animation:fadeUp .4s ease}.cart-item-info h4{color:var(--forest);font-family:Georgia,serif;font-size:13px;margin-bottom:5px}.cart-item-info p{color:var(--clay);font-size:12px;font-weight:800}.remove-item{border:none;background:none;color:#a76d5a;cursor:pointer;font-size:10px}.empty-cart{text-align:center;color:var(--muted);padding:50px 10px;font-size:13px}.cart-total{position:absolute;left:25px;right:25px;bottom:25px}.total-row{display:flex;justify-content:space-between;color:var(--forest);font-weight:800;margin-bottom:15px}.checkout{width:100%;padding:14px;border:none;border-radius:30px;background:var(--forest);color:white;cursor:pointer;font-weight:700;transition:.3s}.checkout:hover{background:var(--moss);transform:translateY(-2px)}
+.toast{position:fixed;left:50%;bottom:25px;padding:13px 20px;background:var(--forest);color:white;border-radius:30px;font-size:12px;z-index:3000;opacity:0;pointer-events:none}.toast.show{animation:toastIn .4s forwards}.toast.hide{animation:toastOut .4s forwards}
+@media(max-width:1050px){.nav-links{display:none}.hero{grid-template-columns:1fr;text-align:center}.hero-content{margin:auto}.hero p{margin-left:auto;margin-right:auto}.hero-buttons{justify-content:center}.products-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:700px){.navbar{padding:0 5%}.search-box{display:none}.hero{padding:60px 5%}.hero h1{letter-spacing:-1.5px}.hero-visual{transform:scale(.8);margin-top:-20px}.bonsai-scene{right:-270px;bottom:-100px;transform:scale(.72);opacity:.23}.philosophy{padding-left:5%;padding-right:5%}.philosophy-inner{grid-template-columns:repeat(2,1fr)}.philosophy-item:nth-child(2){border-right:none}.philosophy-item:nth-child(-n+2){border-bottom:1px solid var(--line)}.products-section{padding-left:5%;padding-right:5%}.products-grid{grid-template-columns:1fr}.newsletter{margin:50px 5%;padding:35px 25px;flex-direction:column;align-items:flex-start}.newsletter-form{width:100%}.newsletter-form input{width:100%}.footer-top{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.hero-visual{transform:scale(.67);margin-left:-25px;margin-right:-25px}.philosophy-inner{grid-template-columns:1fr}.philosophy-item{border-right:none!important;border-bottom:1px solid var(--line)}.philosophy-item:last-child{border-bottom:none}.footer-top{grid-template-columns:1fr}.cart-panel{width:92%}}
+
+/* Uploaded live wallpaper video — original file resolution is preserved. */
+.live-wallpaper {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: -10;
+    overflow: hidden;
+    pointer-events: none;
+    background: #f7f4eb;
+}
+.wallpaper-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+.wallpaper-video-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(rgba(247,244,235,.22), rgba(247,244,235,.22)),
+        radial-gradient(circle at 75% 20%, rgba(255,207,220,.18), transparent 27%),
+        radial-gradient(circle at 15% 80%, rgba(204,220,203,.18), transparent 32%);
+}
+
+
+/* =========================================================
+   GLASSMORPHISM CARD UPGRADE
+   Keeps the video wallpaper visible through all UI cards.
+========================================================= */
+
+:root{
+    --glass-bg:rgba(255,255,255,.24);
+    --glass-bg-strong:rgba(255,255,255,.34);
+    --glass-border:rgba(255,255,255,.48);
+    --glass-shadow:0 18px 50px rgba(31,45,38,.12);
+}
+
+/* Main content surfaces */
+.hero,
+.philosophy,
+.products-section,
+.ikigai-message{
+    background:transparent !important;
+}
+
+/* Navigation glass */
+.navbar{
+    background:rgba(247,244,235,.30) !important;
+    border-bottom:1px solid rgba(255,255,255,.42) !important;
+    box-shadow:0 8px 30px rgba(35,50,40,.06);
+}
+
+/* Philosophy cards */
+.philosophy-item{
+    background:rgba(255,255,255,.20);
+    backdrop-filter:blur(9px) saturate(125%);
+    -webkit-backdrop-filter:blur(9px) saturate(125%);
+}
+
+/* Product cards */
+.product-card{
+    background:rgba(255,255,255,.24) !important;
+    border:1px solid var(--glass-border) !important;
+    box-shadow:var(--glass-shadow);
+    backdrop-filter:blur(8px) saturate(125%);
+    -webkit-backdrop-filter:blur(8px) saturate(125%);
+}
+
+.product-card:hover{
+    background:rgba(255,255,255,.34) !important;
+    box-shadow:0 25px 60px rgba(31,45,38,.18);
+}
+
+/* Product image becomes translucent instead of opaque */
+.product-image,
+.image-one,
+.image-two,
+.image-three,
+.image-four{
+    background:rgba(255,255,255,.15) !important;
+}
+
+/* Labels / floating cards */
+.zen-label{
+    background:rgba(255,255,255,.30) !important;
+    border:1px solid rgba(255,255,255,.55) !important;
+    backdrop-filter:blur(12px) saturate(130%);
+    -webkit-backdrop-filter:blur(12px) saturate(130%);
+}
+
+/* Hero paper glass card */
+.paper{
+    background:rgba(255,255,255,.42) !important;
+    border:1px solid rgba(255,255,255,.55);
+    backdrop-filter:blur(10px) saturate(125%);
+    -webkit-backdrop-filter:blur(10px) saturate(125%);
+}
+
+/* Search glass */
+.search-box{
+    background:rgba(255,255,255,.25) !important;
+    border:1px solid rgba(255,255,255,.48) !important;
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+}
+
+/* Ikigai section */
+.ikigai-message{
+    background:rgba(223,232,223,.25) !important;
+    border-top:1px solid rgba(255,255,255,.25);
+    border-bottom:1px solid rgba(255,255,255,.25);
+    backdrop-filter:blur(3px);
+    -webkit-backdrop-filter:blur(3px);
+}
+
+/* Newsletter glass */
+.newsletter{
+    background:rgba(38,61,50,.68) !important;
+    border:1px solid rgba(255,255,255,.20);
+    backdrop-filter:blur(12px) saturate(125%);
+    -webkit-backdrop-filter:blur(12px) saturate(125%);
+    box-shadow:0 25px 60px rgba(25,40,31,.20);
+}
+
+/* Cart glass */
+.cart-panel{
+    background:rgba(255,253,247,.72) !important;
+    border-left:1px solid rgba(255,255,255,.60);
+    backdrop-filter:blur(18px) saturate(130%);
+    -webkit-backdrop-filter:blur(18px) saturate(130%);
+}
+
+/* Cart items */
+.cart-item{
+    background:rgba(255,255,255,.18);
+    border-radius:12px;
+    padding:14px;
+    margin-bottom:8px;
+    border:1px solid rgba(255,255,255,.30);
+}
+
+/* Footer stays dark enough for readability */
+footer{
+    background:rgba(30,46,38,.78) !important;
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+}
+
+/* Give the video more visual presence */
+.wallpaper-video{
+    filter:saturate(1.08) contrast(1.02);
+}
+
+/* Mobile glass tuning */
+@media(max-width:700px){
+    .product-card{
+        backdrop-filter:blur(6px) saturate(120%);
+        -webkit-backdrop-filter:blur(6px) saturate(120%);
+    }
+
+    .navbar{
+        background:rgba(247,244,235,.34) !important;
+    }
+}
+
+</style>
+</head>
+<body>
+
+<div class="live-wallpaper">
+    <video class="wallpaper-video" autoplay muted loop playsinline preload="auto">
+        <source src="media/background.mp4" type="video/mp4">
+    </video>
+    <div class="wallpaper-video-overlay"></div>
+    <div class="falling-petals" id="fallingPetals"></div>
+</div>
+
+<header class="navbar">
+    <div class="logo"><div class="logo-icon">✎</div>Piyush Stationary</div>
+    <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#products">Collection</a></li>
+        <li><a href="#about">Philosophy</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+        <div class="search-box"><span>⌕</span><input type="text" id="searchInput" placeholder="Search stationery..." onkeyup="searchProducts()"></div>
+        <button class="cart-btn" id="cartButton" onclick="openCart()">🛒<div class="cart-count" id="cartCount">0</div></button>
+    </div>
+</header>
+
+<section class="hero" id="home">
+    <div class="hero-content">
+        <div class="eyebrow">THE ART OF EVERYDAY CREATION</div>
+        <h1>Find your little <em>purpose.</em></h1>
+        <p>Thoughtfully chosen stationery for writing, learning, planning and creating. Because sometimes the smallest page can hold the biggest idea.</p>
+        <div class="hero-buttons">
+            <a href="#products" class="primary-btn">Explore Collection</a>
+            <a href="#about" class="secondary-btn">Our Philosophy</a>
+        </div>
+    </div>
+    <div class="hero-visual">
+        <div class="zen-circle"></div>
+        <div class="paper">
+            <div class="paper-title">My Ideas</div>
+            <div class="paper-line"></div><div class="paper-line"></div><div class="paper-line"></div><div class="paper-line"></div>
+        </div>
+        <div class="pencil"></div>
+        <div class="leaf leaf-one">❧</div>
+        <div class="leaf leaf-two">❧</div>
+        <div class="zen-label label-one">✦ Made for ideas</div>
+        <div class="zen-label label-two">心 — purpose</div>
+    </div>
+</section>
+
+<section class="philosophy">
+    <div class="philosophy-inner">
+        <div class="philosophy-item"><span>Love</span><strong>Create</strong><p>Make something you enjoy.</p></div>
+        <div class="philosophy-item"><span>Need</span><strong>Organize</strong><p>Bring clarity to your day.</p></div>
+        <div class="philosophy-item"><span>Grow</span><strong>Learn</strong><p>Turn pages into progress.</p></div>
+        <div class="philosophy-item"><span>Give</span><strong>Share</strong><p>Let ideas travel further.</p></div>
+    </div>
+</section>
+
+<section class="products-section" id="products">
+    <div class="section-heading">
+        <small>THOUGHTFULLY SELECTED</small>
+        <h2>Everyday Essentials</h2>
+        <p>Four simple tools to help you write, plan, learn and create with intention.</p>
+    </div>
+    <div class="products-grid" id="productsGrid">
+
+        <div class="product-card" data-name="Premium Notebook">
+            <div class="product-image image-one"><div class="sale">FAVOURITE</div><span>📓</span></div>
+            <div class="product-info"><div class="category">Notebooks</div><h3>Premium Notebook</h3><div class="rating">★★★★★ <span>(128)</span></div>
+                <div class="product-bottom"><div class="price">₹149 <span class="old-price">₹199</span></div><button class="add-btn" onclick="addToCart('Premium Notebook',149)">+</button></div>
+            </div>
+        </div>
+
+        <div class="product-card" data-name="Designer Pen Set">
+            <div class="product-image image-two"><div class="sale">POPULAR</div><span>🖊️</span></div>
+            <div class="product-info"><div class="category">Writing</div><h3>Designer Pen Set</h3><div class="rating">★★★★★ <span>(94)</span></div>
+                <div class="product-bottom"><div class="price">₹199 <span class="old-price">₹249</span></div><button class="add-btn" onclick="addToCart('Designer Pen Set',199)">+</button></div>
+            </div>
+        </div>
+
+        <div class="product-card" data-name="Color Pencil Set">
+            <div class="product-image image-three"><span>🖍️</span></div>
+            <div class="product-info"><div class="category">Art Supplies</div><h3>Color Pencil Set</h3><div class="rating">★★★★★ <span>(76)</span></div>
+                <div class="product-bottom"><div class="price">₹249 <span class="old-price">₹299</span></div><button class="add-btn" onclick="addToCart('Color Pencil Set',249)">+</button></div>
+            </div>
+        </div>
+
+        <div class="product-card" data-name="Study Planner">
+            <div class="product-image image-four"><div class="sale">NEW</div><span>📔</span></div>
+            <div class="product-info"><div class="category">Planning</div><h3>Study Planner</h3><div class="rating">★★★★★ <span>(52)</span></div>
+                <div class="product-bottom"><div class="price">₹179 <span class="old-price">₹229</span></div><button class="add-btn" onclick="addToCart('Study Planner',179)">+</button></div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section class="ikigai-message" id="about">
+    <small>A LITTLE MORE THAN STATIONERY</small>
+    <h2>“A page is a quiet place where ideas learn to breathe.”</h2>
+    <p>At Piyush Stationary, we believe stationery should not simply sit on your desk. It should inspire you to think, learn, create and move closer to the things that matter.</p>
+</section>
+
+<section class="newsletter">
+    <div><h2>Keep creating.</h2><p>New collections, thoughtful finds and occasional offers — nothing unnecessary.</p></div>
+    <div class="newsletter-form"><input type="email" id="emailInput" placeholder="Your email address"><button onclick="subscribe()">Join Us</button></div>
+</section>
+
+<footer id="contact">
+    <div class="footer-top">
+        <div class="footer-brand">
+            <div class="logo"><div class="logo-icon">✎</div>Piyush Stationary</div>
+            <p>Simple stationery for meaningful work, quiet moments and everyday creativity.</p>
+        </div>
+        <div><h4>Collection</h4><ul><li><a href="#products">Notebooks</a></li><li><a href="#products">Writing</a></li><li><a href="#products">Art</a></li><li><a href="#products">Planning</a></li></ul></div>
+        <div><h4>Explore</h4><ul><li><a href="#about">Our Philosophy</a></li><li><a href="#">Our Story</a></li><li><a href="#">Journal</a></li><li><a href="#">FAQ</a></li></ul></div>
+        <div><h4>Help</h4><ul><li><a href="#">Shipping</a></li><li><a href="#">Returns</a></li><li><a href="#contact">Contact</a></li><li><a href="#">Support</a></li></ul></div>
+    </div>
+    <div class="copyright">© 2026 Piyush Stationary · Made with intention.</div>
+</footer>
+
+<div class="overlay" id="overlay" onclick="closeCart()"></div>
+
+<div class="cart-panel" id="cartPanel">
+    <div class="cart-header"><h2>Your Collection</h2><button class="close-cart" onclick="closeCart()">✕</button></div>
+    <div class="cart-items" id="cartItems"><div class="empty-cart">Your collection is empty.<br><br>Find something that inspires you.</div></div>
+    <div class="cart-total">
+        <div class="total-row"><span>Total</span><span id="cartTotal">₹0</span></div>
+        <button class="checkout" onclick="checkout()">Continue to Checkout</button>
+    </div>
+</div>
+
+<div class="toast" id="toast">Added to your collection.</div>
+
+<script>
+const petalContainer=document.getElementById("fallingPetals");
+const petalSymbols=["🌸","❀","✿","🌸","·"];
+
+function createPetal(){
+    const petal=document.createElement("span");
+    petal.className="falling-petal";
+    petal.textContent=petalSymbols[Math.floor(Math.random()*petalSymbols.length)];
+    petal.style.left=Math.random()*100+"%";
+    const size=9+Math.random()*13;
+    petal.style.fontSize=size+"px";
+    const duration=7+Math.random()*9;
+    petal.style.animationDuration=duration+"s,"+(2+Math.random()*3)+"s";
+    petal.style.animationDelay=Math.random()*6+"s";
+    petal.style.setProperty("--drift",(Math.random()*300-150)+"px");
+    petalContainer.appendChild(petal);
+    setTimeout(()=>petal.remove(),(duration+7)*1000);
+}
+for(let i=0;i<30;i++) createPetal();
+setInterval(createPetal,650);
+
+let cart=[];
+
+function addToCart(name,price){
+    cart.push({name,price});
+    updateCart();
+    showToast(name+" added to your collection.");
+    const cartButton=document.getElementById("cartButton");
+    cartButton.classList.remove("animate");
+    void cartButton.offsetWidth;
+    cartButton.classList.add("animate");
+}
+
+function updateCart(){
+    const count=document.getElementById("cartCount");
+    const items=document.getElementById("cartItems");
+    const totalElement=document.getElementById("cartTotal");
+    count.textContent=cart.length;
+
+    if(cart.length===0){
+        items.innerHTML='<div class="empty-cart">Your collection is empty.<br><br>Find something that inspires you.</div>';
+        totalElement.textContent="₹0";
+        return;
+    }
+
+    let total=0;
+    items.innerHTML="";
+    cart.forEach((item,index)=>{
+        total+=item.price;
+        const element=document.createElement("div");
+        element.className="cart-item";
+        element.innerHTML='<div class="cart-item-info"><h4>'+item.name+'</h4><p>₹'+item.price+'</p></div><button class="remove-item" onclick="removeItem('+index+')">Remove</button>';
+        items.appendChild(element);
+    });
+    totalElement.textContent="₹"+total;
+}
+
+function removeItem(index){
+    cart.splice(index,1);
+    updateCart();
+    showToast("Removed from your collection.");
+}
+
+function openCart(){
+    document.getElementById("cartPanel").classList.add("active");
+    document.getElementById("overlay").classList.add("active");
+}
+
+function closeCart(){
+    document.getElementById("cartPanel").classList.remove("active");
+    document.getElementById("overlay").classList.remove("active");
+}
+
+function searchProducts(){
+    const search=document.getElementById("searchInput").value.toLowerCase();
+    document.querySelectorAll(".product-card").forEach(product=>{
+        const name=product.getAttribute("data-name").toLowerCase();
+        product.style.display=name.includes(search)?"block":"none";
+    });
+}
+
+function subscribe(){
+    const email=document.getElementById("emailInput").value.trim();
+    if(email===""){showToast("Please enter your email.");return;}
+    if(!email.includes("@")){showToast("Please enter a valid email.");return;}
+    document.getElementById("emailInput").value="";
+    showToast("Welcome to Piyush Stationary.");
+}
+
+function checkout(){
+    if(cart.length===0){showToast("Your collection is empty.");return;}
+    showToast("Checkout will be available soon.");
+}
+
+let toastTimer;
+function showToast(message){
+    const toast=document.getElementById("toast");
+    clearTimeout(toastTimer);
+    toast.textContent=message;
+    toast.classList.remove("hide");
+    toast.classList.add("show");
+    toastTimer=setTimeout(()=>{
+        toast.classList.remove("show");
+        toast.classList.add("hide");
+    },2200);
+}
+
+const observer=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+        if(entry.isIntersecting) entry.target.classList.add("reveal");
+    });
+},{threshold:.15});
+
+document.querySelectorAll(".product-card,.section-heading,.newsletter,.philosophy-item").forEach(element=>observer.observe(element));
+
+document.addEventListener("keydown",event=>{
+    if(event.key==="Escape") closeCart();
+});
+</script>
+
+</body>
+</html>
